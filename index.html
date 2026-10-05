@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SUGO · 意面酱研所</title>
+<meta name="theme-color" content="#FAF6EF">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#FAF6EF; --card:#FFFDF8; --ink:#26221C; --ink2:#5C554A; --muted:#9A917F;
+  --tomato:#C4472F; --basil:#5A7248; --butter:#D9A441; --hair:rgba(38,34,28,.14);
+}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:-apple-system,'PingFang SC','HarmonyOS Sans SC','Noto Sans SC','Microsoft YaHei',sans-serif;line-height:1.7;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:98;opacity:.4;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+.serif{font-family:Georgia,'Times New Roman','Songti SC','Noto Serif SC',SimSun,serif}
+.wrap{max-width:680px;margin:0 auto;padding:0 20px}
+
+/* ===== Hero ===== */
+.hero{padding:64px 0 40px;text-align:center;border-bottom:1px solid var(--hair)}
+.hero .it{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:13px;letter-spacing:6px;color:var(--basil)}
+.hero h1{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:74px;font-weight:600;letter-spacing:2px;line-height:1;margin:10px 0 4px;color:var(--ink)}
+.hero h1 em{color:var(--tomato);font-style:italic}
+.hero .zh{font-family:Georgia,'Songti SC','Noto Serif SC',serif;font-size:16px;letter-spacing:10px;margin-top:8px}
+.hero .sub{font-size:12px;color:var(--muted);letter-spacing:2px;margin-top:14px}
+.hero .rule{width:56px;height:2px;background:var(--tomato);margin:22px auto 0}
+
+/* ===== 章节导航 ===== */
+.chapters{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;padding:18px 0;border-bottom:1px solid var(--hair)}
+.chapters a{font-family:Georgia,'Songti SC',serif;font-size:12px;letter-spacing:2px;color:var(--ink2);text-decoration:none;padding:7px 14px;border:1px solid var(--hair);border-radius:999px;transition:all .2s}
+.chapters a:hover{border-color:var(--tomato);color:var(--tomato)}
+
+/* ===== 章节头 ===== */
+.chap{padding:56px 0 8px}
+.chap .no{font-family:Georgia,serif;font-style:italic;font-size:13px;letter-spacing:5px;color:var(--muted)}
+.chap h2{font-family:Georgia,'Songti SC','Noto Serif SC',serif;font-size:30px;font-weight:600;letter-spacing:3px;margin:6px 0 2px}
+.chap h2 i{font-family:Georgia,serif;font-size:22px;color:var(--tomato);letter-spacing:1px}
+.chap p.desc{font-size:12.5px;color:var(--ink2);max-width:460px;margin-top:8px}
+
+/* ===== 配方卡 ===== */
+.rcard{background:var(--card);border:1px solid var(--hair);border-radius:14px;margin:26px 0;overflow:hidden;box-shadow:0 6px 24px rgba(38,34,28,.06)}
+.rimg{position:relative}
+.rimg img{width:100%;height:auto;display:block}
+.rimg .no-badge{position:absolute;top:14px;left:14px;font-family:Georgia,serif;font-style:italic;font-size:13px;letter-spacing:2px;color:#FFFDF8;background:rgba(38,34,28,.72);padding:5px 13px;border-radius:999px;backdrop-filter:blur(4px)}
+.rimg .done-badge{position:absolute;top:14px;right:14px;font-family:'Songti SC','Noto Serif SC',serif;font-size:12px;font-weight:700;letter-spacing:2px;color:var(--tomato);border:2px solid var(--tomato);background:rgba(255,253,248,.92);padding:3px 10px;border-radius:5px;transform:rotate(8deg)}
+.rbody{padding:22px 22px 24px}
+.rhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.rhead .it-name{font-family:Georgia,serif;font-style:italic;font-size:21px;color:var(--ink);letter-spacing:.5px}
+.rhead .zh-name{font-family:Georgia,'Songti SC','Noto Serif SC',serif;font-size:15px;letter-spacing:2px;color:var(--ink2)}
+.meta{display:flex;gap:16px;margin-top:8px;font-size:11.5px;color:var(--muted);letter-spacing:1px;flex-wrap:wrap}
+.meta .lvl{color:var(--tomato);letter-spacing:3px}
+.rtip{font-family:Georgia,'Songti SC',serif;font-style:italic;font-size:13px;color:var(--basil);border-left:2px solid var(--basil);padding-left:10px;margin:14px 0;line-height:1.9}
+.pair{font-size:11.5px;color:var(--ink2);letter-spacing:1px;margin-top:10px}
+.pair b{color:var(--tomato);font-weight:600}
+
+/* 食材与步骤（点击展开） */
+.toggle{border:none;background:none;color:var(--tomato);font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:3px;cursor:pointer;padding:12px 0 0;text-align:left}
+.steps{display:none;margin-top:14px}
+.steps.on{display:block}
+.ing{list-style:none;border-top:1px solid var(--hair)}
+.ing li{display:flex;justify-content:space-between;padding:9px 2px;border-bottom:1px solid var(--hair);font-size:13px;color:var(--ink2)}
+.ing li span:last-child{font-family:Georgia,serif;color:var(--muted);font-size:12px}
+.stlist{counter-reset:st;list-style:none;margin-top:6px}
+.stlist li{counter-increment:st;position:relative;padding:12px 0 12px 52px;border-bottom:1px solid var(--hair);font-size:13.5px;color:var(--ink2);line-height:1.8}
+.stlist li::before{content:counter(st,decimal-leading-zero);position:absolute;left:0;top:12px;font-family:Georgia,serif;font-style:italic;font-size:22px;color:var(--tomato);opacity:.85}
+.stlist li b{color:var(--ink);font-weight:600}
+.donebtn{margin-top:16px;border:1.5px solid var(--ink);background:none;color:var(--ink);font-family:inherit;font-weight:700;font-size:12px;letter-spacing:3px;padding:11px 22px;border-radius:999px;cursor:pointer;transition:all .2s}
+.donebtn.on{background:var(--tomato);border-color:var(--tomato);color:#FFFDF8}
+
+/* ===== 推荐器 ===== */
+.matcher{background:var(--ink);color:#FAF6EF;border-radius:16px;padding:34px 26px;margin:50px 0 30px;position:relative;overflow:hidden}
+.matcher::before{content:'';position:absolute;top:-60px;right:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(196,71,47,.32),transparent 70%)}
+.matcher .it-h{font-family:Georgia,serif;font-style:italic;font-size:12px;letter-spacing:4px;color:var(--butter)}
+.matcher h3{font-family:Georgia,'Songti SC','Noto Serif SC',serif;font-size:22px;letter-spacing:3px;margin:6px 0 4px}
+.matcher .hint{font-size:11.5px;color:rgba(250,246,239,.55);letter-spacing:1px}
+.pantry{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 20px}
+.pantry button{border:1px solid rgba(250,246,239,.28);background:none;color:rgba(250,246,239,.85);font-family:inherit;font-size:12px;letter-spacing:2px;padding:8px 15px;border-radius:999px;cursor:pointer;transition:all .18s}
+.pantry button.on{background:#FAF6EF;color:#26221C;border-color:#FAF6EF;font-weight:700}
+.matchout{border-top:1px solid rgba(250,246,239,.15);padding-top:16px;min-height:52px}
+.matchout .mrow2{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px dashed rgba(250,246,239,.14);font-size:13.5px}
+.matchout .mrow2 .nm{font-family:Georgia,'Songti SC',serif;font-style:italic}
+.matchout .mrow2 .miss{font-size:10.5px;color:var(--butter);letter-spacing:1px}
+.matchout .empty{font-size:12px;color:rgba(250,246,239,.5);padding:14px 0;letter-spacing:2px}
+
+/* ===== 进度 & footer ===== */
+.prog{text-align:center;padding:30px 0 10px;font-family:Georgia,'Songti SC',serif}
+.prog .big{font-size:44px;font-style:italic;color:var(--tomato)}
+.prog .lbl{font-size:12px;letter-spacing:4px;color:var(--muted)}
+footer{border-top:1px solid var(--hair);margin-top:40px;padding:34px 0 60px;text-align:center}
+footer .it{font-family:Georgia,serif;font-style:italic;font-size:20px;color:var(--ink);letter-spacing:1px}
+footer .zh{font-size:11px;color:var(--muted);letter-spacing:3px;margin-top:8px}
+
+/* toast */
+#toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 34px);transform:translate(-50%,14px);z-index:99;background:rgba(38,34,28,.92);color:#FAF6EF;font-size:12.5px;letter-spacing:2px;padding:12px 26px;border-radius:999px;opacity:0;pointer-events:none;transition:all .3s;backdrop-filter:blur(6px);max-width:86vw;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="it">LA CUCINA ITALIANA</div>
+    <h1><em>S</em>UGO</h1>
+    <div class="zh serif">意 面 酱 研 所</div>
+    <div class="sub">一只锅 · 一种酱 · 从十二分钟到两小时的耐心</div>
+    <div class="rule"></div>
+  </div>
+
+  <nav class="chapters">
+    <a href="#c1">壹 · 红酱</a><a href="#c2">贰 · 白酱</a><a href="#c3">叁 · 油与蛋</a><a href="#c4">肆 · 青酱与西西里</a>
+  </nav>
+
+  <!-- 推荐器 -->
+  <section class="matcher" id="matcher">
+    <div class="it-h">COSA C'È IN CUCINA?</div>
+    <h3>今晚做什么酱</h3>
+    <div class="hint">勾选家里现成的食材，研所替你翻一遍谱系</div>
+    <div class="pantry" id="pantry"></div>
+    <div class="matchout" id="matchout"><div class="empty">勾上几样，酱就有着落了。</div></div>
+  </section>
+
+  <div id="chapters"></div>
+
+  <div class="prog">
+    <div class="big" id="doneNum">0<span style="font-size:20px;color:var(--muted)"> / 13</span></div>
+    <div class="lbl">研所学员已亲手做过的酱</div>
+  </div>
+
+  <footer>
+    <div class="it">Buon appetito.</div>
+    <div class="zh">面要留在锅里的那一刻拌酱 · 别客气，再来一盘</div>
+  </footer>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("on");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("on"),2200)}
+
+/* ===== 13 种酱谱（真实意式做法） ===== */
+const SAUCES=[
+ {id:"marinara",chap:1,no:"01",it:"Marinara",zh:"海员沙番茄酱",time:"20 分钟",lvl:1,
+  tip:"番茄酱的起点——先让蒜末在油里醒过来，番茄才会香。",
+  pair:"Spaghetti · 面条细而直，挂得住红",
+  ing:[["圣马扎诺去皮番茄（罐头）","400 g"],["大蒜","3 瓣"],["特级初榨橄榄油","4 勺"],["新鲜罗勒","1 把"],["盐","1 茶匙"],["干辣椒碎（可选）","1 撮"]],
+  steps:["<b>冷油下蒜</b>：橄榄油四勺，蒜片冷锅下，小火煸到边缘金黄、香气出来——别焦，焦了会苦。",
+         "<b>番茄进锅</b>：罐头番茄连汁倒进锅里，用木勺把整颗的压碎。加盐，中火煮开。",
+         "<b>十五分钟</b>：转小火，让它咕嘟着。偶尔推一把锅底，煮到油从番茄里泛出红色光亮。",
+         "<b>罗勒收尾</b>：关火前丢进罗勒叶，拌开。浇在刚出锅的面条上——这时候不拍照，先吃。"]},
+ {id:"bolognese",chap:1,no:"02",it:"Ragù Bolognese",zh:"博洛尼亚肉酱",time:"2 小时",lvl:3,
+  tip:"肉酱是慢的艺术。两小时里大部分时间你什么都不用做，只是偶尔搅一下。",
+  pair:"Tagliatelle · 宽扁蛋面才兜得住肉",
+  ing:[["牛绞肉","250 g"],["猪绞肉（肥一点）","100 g"],["洋葱 · 胡萝卜 · 芹菜（切碎）","各 1/2 杯"],["番茄膏","2 勺"],["去皮整番茄","400 g"],["红酒","120 ml"],["全脂牛奶","100 ml"],["黄油 · 盐 · 黑椒","适量"]],
+  steps:["<b>炒软底菜</b>：黄油下洋葱胡萝卜芹菜碎，中小火炒 10 分钟到软而不上色——这是肉酱的甜味来源。",
+         "<b>肉要煎透</b>：两种绞肉下锅，摊开，煎到变色出香。这一步别急，水分收干肉才香。",
+         "<b>红酒收干</b>：倒红酒，刮起锅底焦香，煮到酒气散尽。加番茄膏炒一分钟，再入番茄压碎。",
+         "<b>加水没过</b>：加一杯水，盖盖，最小火炖 1.5 小时。太干就添水。",
+         "<b>牛奶的温柔</b>：最后 20 分钟倒入牛奶，搅匀——这是博洛尼亚的秘密，肉酱会变得圆润。盐、黑椒收尾。"]},
+ {id:"arrabbiata",chap:1,no:"03",it:"Penne all'Arrabbiata",zh:"愤怒的番茄",time:"15 分钟",lvl:1,
+  tip:"Arrabbiata 意思是『生气的』——辣的就是这口气。辣度由你说了算。",
+  pair:"Penne · 通心管把辣汁吸进去",
+  ing:[["去皮番茄","400 g"],["大蒜","2 瓣"],["干辣椒碎","1-2 茶匙"],["橄榄油","4 勺"],["欧芹（可选）","少许"],["盐","适量"]],
+  steps:["<b>油煸辣椒与蒜</b>：冷油下蒜片和辣椒碎，小火一分钟——辣椒在油里会变成深红。",
+         "<b>番茄压碎入锅</b>：中火煮开，加盐，收汁到浓稠，约 10 分钟。",
+         "<b>面煮到弹牙</b>：比包装时间少一分钟。捞进酱锅，加一勺面汤，翻拌收汁。",
+         "<b>欧芹碎点缀</b>：上桌前撒一把。吃的顺序：先被辣到，再停不下来。"]},
+ {id:"amatriciana",chap:1,no:"04",it:"Bucatini all'Amatriciana",zh:"阿马特里恰纳",time:"25 分钟",lvl:2,
+  tip:"灵魂是 Guanciale（腌猪颊肉）——买不到就用厚切培根代替，但你会知道区别。",
+  pair:"Bucatini · 中空粗面，汁在管里走",
+  ing:[["腌猪颊肉（或厚培根）","150 g"],["去皮番茄","400 g"],["佩克里诺羊奶酪碎","40 g"],["干辣椒碎","1 撮"],["白葡萄酒（可选）","2 勺"]],
+  steps:["<b>冷锅煸肉</b>：猪颊肉切条，小火煸出油脂，煎到边缘焦脆——那些油就是整道酱的底味。",
+         "<b>去酒或直接番茄</b>：可溅一勺酒提香，再倒入番茄压碎，小火煮 15 分钟。",
+         "<b>面入酱锅</b>：煮好的面直接进锅翻拌，让每根面都沾上红亮的油汁。",
+         "<b>奶酪上桌</b>：装盘后撒佩克里诺碎——咸与奶香最后才登场。"]},
+ {id:"puttanesca",chap:1,no:"05",it:"Puttanesca",zh:"烟花女酱",time:"20 分钟",lvl:2,
+  tip:"咸、酸、鲜、辣一起冲——鳀鱼先在油里化掉，鲜味就藏进酱里了。",
+  pair:"Spaghetti · 直面配这股泼辣劲",
+  ing:[["去皮番茄","400 g"],["黑橄榄","12 颗"],["刺山柑","1 勺"],["鳀鱼柳","4 条"],["大蒜","2 瓣"],["橄榄油","4 勺"],["干辣椒碎 · 欧芹","适量"]],
+  steps:["<b>油化鳀鱼</b>：油、蒜、鳀鱼一起小火，用铲子把鳀鱼按碎到融化在油里。",
+         "<b>橄榄刺山柑进锅</b>：切片的橄榄和刺山柑炒一分钟，倒番茄，压碎，加盐煮 12 分钟。",
+         "<b>合体</b>：面下锅拌，尝味——鳀鱼和刺山柑自带咸，盐要保守。",
+         "<b>辣度自选</b>：辣椒碎随缘。这道酱不温柔，也不需要温柔。"]},
+ {id:"norma",chap:1,no:"06",it:"Pasta alla Norma",zh:"西西里诺玛",time:"40 分钟",lvl:2,
+  tip:"茄子先煎过再进酱——不许跳过这一步，否则整锅会变得湿软。",
+  pair:"Penne 或 Rigatoni · 管面接住炖烂的茄子",
+  ing:[["长茄子","2 根"],["去皮番茄","400 g"],["大蒜","2 瓣"],["里科塔咸奶酪（或菲达）","50 g"],["新鲜罗勒","一把"],["橄榄油（多一点）","6 勺"]],
+  steps:["<b>茄子盐渍</b>：切滚刀块，撒盐静置 20 分钟，挤去水分擦干——去苦且省油。",
+         "<b>煎茄子</b>：油热后分批煎茄子到两面金黄焦香，盛出。",
+         "<b>番茄酱打底</b>：蒜油爆香，入番茄煮 10 分钟成粗酱，盐调味。",
+         "<b>茄子回锅</b>：面和茄子一起拌进酱里，关火，撒罗勒与咸奶酪碎。西西里会心一击。"]},
+ {id:"pesto",chap:4,no:"07",it:"Pesto alla Genovese",zh:"热那亚青酱",time:"15 分钟",lvl:1,
+  tip:"研钵捣的比搅拌机打的香——叶子是『撕』不是『切』，切口会氧化发黑。",
+  pair:"Trofie 或 Gnocchi · 螺旋面最挂青酱",
+  ing:[["新鲜罗勒叶（洗净彻底擦干）","80 g"],["松子（可烤香）","30 g"],["帕玛森奶酪碎","40 g"],["佩克里诺（可选）","20 g"],["大蒜","1-2 瓣"],["特级初榨橄榄油","120 ml"],["盐","少许"]],
+  steps:["<b>先捣蒜与松子</b>：研钵里先捣大蒜和松子成粗泥。",
+         "<b>分批下罗勒</b>：罗勒加盐分两三批放入，转圈研磨——顺一个方向，把叶子磨出深绿的膏。",
+         "<b>奶酪与油</b>：拌入奶酪碎，最后分数次倒入橄榄油，到丝滑挂勺。",
+         "<b>面汤调开</b>：拌面前加两勺煮面水把青酱调开——乳化后才亮。绝不上火煮。"]},
+ {id:"alfredo",chap:2,no:"08",it:"Fettuccine Alfredo",zh:"白酱蛋面",time:"15 分钟",lvl:1,
+  tip:"真正罗马版的 Alfredo 只有黄油和帕玛森——奶油是后来世界的温柔。",
+  pair:"Fettuccine · 又宽又扁才裹得住白",
+  ing:[["宽蛋面","320 g"],["无盐黄油","80 g"],["帕玛森奶酪现磨碎","100 g"],["煮面水","150 ml"],["黑椒现磨","适量"]],
+  steps:["<b>黄油融化</b>：面煮至弹牙前两分钟捞出，留足面汤。",
+         "<b>乳化</b>：面入黄油锅，加半杯面汤，翻拌——淀粉遇油会变成天然酱汁。",
+         "<b>离火加奶酪</b>：**离火**分批撒奶酪翻拌——火太大奶酪会结块拉丝失败。",
+         "<b>稠度自调</b>：面汤一点点点加，直到酱汁像绸缎一样挂在面上。黑椒收尾。"]},
+ {id:"vodka",chap:2,no:"09",it:"Penne alla Vodka",zh:"伏特加粉红酱",time:"25 分钟",lvl:2,
+  tip:"伏特加不是做菜的味道，是催化剂——它把番茄和奶油拉到了一起。",
+  pair:"Penne · 管面配粉红",
+  ing:[["去皮番茄","400 g"],["伏特加","60 ml"],["重奶油","120 ml"],["洋葱（细碎）","1/4 杯"],["辣椒碎","1 撮"],["帕玛森","30 g"]],
+  steps:["<b>炒洋葱到透明</b>：油煸洋葱 5 分钟，加辣椒碎。",
+         "<b>番茄压碎煮 10 分钟</b>：成粗酱。",
+         "<b>伏特加</b>：倒入伏特加，煮 5 分钟让酒精散掉，只留圆润。",
+         "<b>奶油转粉</b>：倒入奶油搅成粉红，小火两分钟。面入锅拌，帕玛森上桌。"]},
+ {id:"funghi",chap:2,no:"10",it:"Sugo ai Funghi",zh:"野菌奶油酱",time:"25 分钟",lvl:2,
+  tip:"蘑菇要有『煎』这个动作——一锅别放太多，让每一片都上色。",
+  pair:"Tagliatelle · 蛋面和菌香是一家",
+  ing:[["混合蘑菇（口蘑+香菇+牛肝菌）","350 g"],["大蒜","2 瓣"],["白葡萄酒","60 ml"],["重奶油（可选）","80 ml"],["百里香","几枝"],["黄油","30 g"],["欧芹碎","适量"]],
+  steps:["<b>干煎上色</b>：热锅少油，蘑菇分批煎到金黄出香——这时候别翻动它。",
+         "<b>黄油蒜与百里香</b>：加黄油、蒜片、百里香炒一分钟。",
+         "<b>酒收干</b>：白葡萄酒入锅，刮锅底，煮到几乎收干。",
+         "<b>奶油或面汤</b>：加奶油成白酱，或只加面汤保持清爽。面入锅拌，欧芹收尾。"]},
+ {id:"aglio",chap:3,no:"11",it:"Aglio, Olio e Peperoncino",zh:"蒜油辣椒面",time:"12 分钟",lvl:1,
+  tip:"深夜食堂式的意大利面——四样东西，全靠油温的控制。",
+  pair:"Spaghetti · 最普通的直面配最基础的酱",
+  ing:[["大蒜（切薄片）","6 瓣"],["特级初榨橄榄油","6 勺"],["干辣椒碎","1-2 茶匙"],["欧芹碎","2 勺"],["盐","适量"]],
+  steps:["<b>冷油冷锅下蒜片</b>：全程小火，慢慢把蒜煸到浅金黄——这是整道菜唯一的技巧点。",
+         "<b>辣椒碎后下</b>：蒜香出来后加辣椒碎，五秒就好——辣椒焦了会苦。",
+         "<b>面汤乳化</b>：煮到弹牙的面和半杯面汤一起入锅，转大火，快速翻拌到汤汁泛白乳化。",
+         "<b>欧芹最后</b>：关火撒欧芹。没有奶酪、没有番茄——但没有人能拒绝它。"]},
+ {id:"carbonara",chap:3,no:"12",it:"Carbonara",zh:"蛋黄培根面",time:"15 分钟",lvl:3,
+  tip:"全意大利没有一勺奶油。浓稠来自蛋黄与奶酪的乳化——还有你的手速。",
+  pair:"Spaghetti 或 Rigatoni · 经典不挑",
+  ing:[["蛋黄","3 个"],["佩克里诺罗马诺碎","60 g"],["腌猪颊肉（或培根）","120 g"],["现磨黑椒","1 茶匙"],["煮面水","100 ml"]],
+  steps:["<b>煸肉</b>：猪颊肉小火煸到焦脆，关火，油留在锅里。",
+         "<b>蛋黄糊</b>：蛋黄+奶酪+大量黑椒搅成浓稠的糊。",
+         "<b>关键的温度</b>：面入肉锅拌匀，**离火**——等 30 秒让锅温降下来，太烫蛋会变炒蛋。",
+         "<b>乳化手速</b>：蛋黄糊倒入，加面汤，快速翻拌到每根面挂上丝绸般的酱。立刻上桌，不等。"]},
+ {id:"cacio",chap:3,no:"13",it:"Cacio e Pepe",zh:"黑椒芝士面",time:"10 分钟",lvl:3,
+  tip:"只有奶酪和黑椒——难就难在乳化。面汤的淀粉是你的全部倚仗。",
+  pair:"Tonnarelli 或 Spaghetti · 罗马人的骄傲",
+  ing:[["佩克里诺罗马诺现磨碎","100 g"],["现磨黑椒","2 茶匙"],["煮面水","200 ml"]],
+  steps:["<b>烘椒</b>：黑椒碎干锅烘 30 秒到香气爆出，加一勺面汤煮开成黑椒水。",
+         "<b>奶酪糊</b>：奶酪碎加温热的面汤调成浓糊——不能烫，烫了会结块。",
+         "<b>离火乳化</b>：面入黑椒锅离火，倒入奶酪糊，疯狂翻拌——面汤的淀粉让酱汁挂住。",
+         "<b>看亮度</b>：成功的标志是酱汁发亮、挂在面上不泄水。失败也不难吃，再来一次。"]},
+];
+const CHAPS=[["壹 · 红酱","Sugo Rosso","番茄是红酱宇宙的中心——罐头圣马扎诺比新鲜番茄更适合入酱，酸度稳定、甜味干净。"],["贰 · 白酱","Sugo Bianco","奶油与奶酪的温柔系——切记：奶酪永远离火加，面汤是白酱的命。"],["叁 · 油与蛋","Olio e Uovo","罗马人的极简主义——油、蛋、奶酪，三种原料做出最难的酱。"],["肆 · 青酱与西西里","Verde e Sicilia","罗勒的绿与茄子的紫——南方的阳光都熬在里面。"]];
+
+/* ===== 渲染章节 ===== */
+function lvlTxt(n){return "●".repeat(n)+"○".repeat(3-n)}
+let S=JSON.parse(localStorage.getItem("sugo_done")||"[]");
+function saveS(){localStorage.setItem("sugo_done",JSON.stringify(S))}
+function render(){
+  $("#chapters").innerHTML=[1,2,3,4].map(ci=>{
+    const c=CHAPS[ci-1];
+    const cards=SAUCES.filter(x=>x.chap===ci).map(m=>{
+      const done=S.includes(m.id);
+      return `<article class="rcard" id="r-${m.id}">
+        <div class="rimg"><img src="img/${m.id}.png" alt="${m.zh}" loading="lazy" onerror="this.parentNode.style.minHeight='140px';this.remove()">
+          <span class="no-badge">Nº ${m.no}</span>${done?'<span class="done-badge">做过 ✓</span>':""}</div>
+        <div class="rbody">
+          <div class="rhead"><span class="it-name">${m.it}</span><span class="zh-name">${m.zh}</span></div>
+          <div class="meta"><span class="lvl">${lvlTxt(m.lvl)}</span><span>⏱ ${m.time}</span></div>
+          <p class="rtip">${m.tip}</p>
+          <div class="pair">配面 —— <b>${m.pair}</b></div>
+          <button class="toggle" data-id="${m.id}">翻开谱子 ▾</button>
+          <div class="steps" data-id="${m.id}">
+            <ul class="ing">${m.ing.map(i=>`<li><span>${i[0]}</span><span>${i[1]}</span></li>`).join("")}</ul>
+            <ol class="stlist">${m.steps.map(s=>`<li>${s}</li>`).join("")}</ol>
+            <button class="donebtn${done?" on":""}" data-id="${m.id}">${done?"已做过 · 再来一遍":"今天做了这锅 ✓"}</button>
+          </div>
+        </div></article>`;
+    }).join("");
+    return `<section class="chap" id="c${ci}">
+      <div class="no">CHAPTER ${String(ci).padStart(2,"0")} · ${c[1].toUpperCase()}</div>
+      <h2>${c[0]} <i>· ${c[1]}</i></h2>
+      <p class="desc">${c[2]}</p>${cards}</section>`;
+  }).join("");
+  $("#doneNum").innerHTML=`${S.length}<span style="font-size:20px;color:var(--muted)"> / 13</span>`;
+  // 事件
+  document.querySelectorAll(".toggle").forEach(b=>b.addEventListener("click",()=>{
+    const st=document.querySelector(`.steps[data-id="${b.dataset.id}"]`);
+    const on=st.classList.toggle("on");b.textContent=on?"收起谱子 ▴":"翻开谱子 ▾";
+  }));
+  document.querySelectorAll(".donebtn").forEach(b=>b.addEventListener("click",()=>{
+    const id=b.dataset.id;
+    if(S.includes(id)){S=S.filter(x=>x!==id);toast("先把章收回来 —— 还没吃呢")}
+    else{S.push(id);toast("记下了 —— 这锅是你亲手做的")}
+    saveS();render();
+  }));
+}
+render();
+
+/* ===== 推荐器 ===== */
+const PANTRY=[["番茄","tomato"],["鸡蛋","egg"],["培根/腌肉","bacon"],["奶油","cream"],["奶酪碎","cheese"],["罗勒","basil"],["大蒜","garlic"],["蘑菇","mushroom"],["茄子","eggplant"],["橄榄/刺山柑","olive"],["辣椒碎","chili"],["伏特加","vodka"],["黄油","butter"]];
+let got=[];
+const KEYMAP={tomato:["marinara","arrabbiata","amatriciana","puttanesca","norma","vodka","bolognese"],egg:["carbonara"],bacon:["carbonara","amatriciana"],cream:["alfredo","vodka","funghi"],cheese:["cacio","alfredo","carbonara","vodka"],basil:["pesto","marinara"],garlic:["aglio","marinara","arrabbiata","puttanesca","funghi","norma"],mushroom:["funghi"],eggplant:["norma"],olive:["puttanesca"],chili:["arrabbiata","aglio"],vodka:["vodka"],butter:["alfredo","bolognese","funghi"]};
+function renderPantry(){$("#pantry").innerHTML=PANTRY.map(p=>`<button data-k="${p[1]}" class="${got.includes(p[1])?"on":""}">${p[0]}</button>`).join("");
+  $("#pantry").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.k;got=got.includes(k)?got.filter(x=>x!==k):[...got,k];renderPantry();match()}))}
+function match(){
+  const el=$("#matchout");
+  if(!got.length){el.innerHTML='<div class="empty">勾上几样，酱就有着落了。</div>';return}
+  const need=SAUCES.map(m=>({m,have:got.filter(k=>(KEYMAP[k]||[]).includes(m.id)).length,miss:PANTRY.filter(p=>(KEYMAP[p[1]]||[]).includes(m.id)&&!got.includes(p[1])).map(p=>p[0])}))
+    .filter(x=>x.have>0).sort((a,b)=>b.have-a.have||a.m.lvl-b.m.lvl).slice(0,4);
+  if(!need.length){el.innerHTML='<div class="empty">这些食材……研所正在想新谱子。再添几样？</div>';return}
+  el.innerHTML=need.map((x,i)=>`<div class="mrow2"><span class="nm">${x.m.it} · ${x.m.zh}</span><span class="miss">${i===0&&x.miss.length===0?"完美匹配 ✓":(x.miss.length?`还差：${x.miss.slice(0,2).join("、")}`:"家里齐活 ✓")}</span></div>`).join("");
+}
+renderPantry();
+
+/* toast 定位修复 for matcher 深底 */
+</script>
+</body>
+</html>
